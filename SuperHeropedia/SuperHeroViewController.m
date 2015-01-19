@@ -13,12 +13,23 @@
 @property NSArray *heroesArray;
 @property (weak, nonatomic) IBOutlet UITableView *heroesTableView;
 
+@property (weak, nonatomic) IBOutlet UINavigationItem *navItem;
+@property UIActivityIndicatorView *navbarActivityIndicator;
+
 @end
 
 @implementation SuperHeroViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    // Create a navbar activity indicator, insert it into a UIBarButtonItem and set it right of the nav item
+    self.navbarActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIBarButtonItem *navSpinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navbarActivityIndicator];
+    [self.navItem setRightBarButtonItem:navSpinnerBarButtonItem];
+
+    // Start animating the spinner on view load
+    [self.navbarActivityIndicator startAnimating];
 
     // The heroes array is an array of dictionary items
 //    self.heroesArray = @[
@@ -40,7 +51,7 @@
 //                         },
 //                         @{
 //                             @"name" : @"Juggernaut",
-//                             @"age"  : @39
+//       76yuu                          y@"age"  : @39
 //                         },
 //                         @{
 //                             @"name" : @"Wolverine",
@@ -54,6 +65,9 @@
     [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         self.heroesArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         [self.heroesTableView reloadData];
+
+        // Stop the spinner once the data is loaded
+        [self.navbarActivityIndicator stopAnimating];
     }];
 }
 

@@ -59,6 +59,7 @@
                     <navigationItem key="navigationItem" title="Known Superheroes" id="3ZD-Lc-Lzf"/>
                     <connections>
                         <outlet property="heroesTableView" destination="ezS-OD-slW" id="ydw-E8-9Rm"/>
+                        <outlet property="navItem" destination="3ZD-Lc-Lzf" id="SmJ-DG-Z45"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
